@@ -13,8 +13,10 @@ public class App extends JFrame{
 		add(new Board());
 		setSize(250,200);
 		setTitle("App");
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 	
 	public static void main(String[] args){
