@@ -1,7 +1,11 @@
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 
@@ -15,8 +19,16 @@ public class Sprite {
 	private boolean visible;
 	private Image image;
 	
+	private boolean dL = false, dR = false, dU = false, dD = false;
+	
 	public Sprite(){
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("craft.png"));
+		BufferedImage img = null;
+		try {
+		    img = ImageIO.read(new File("craft.png"));
+		} catch (IOException e) {
+			System.out.println("nothing");
+		}
+		ImageIcon ii = new ImageIcon(img);
 		image = ii.getImage();
 		width = ii.getIconWidth();
 		height = ii.getIconHeight();
@@ -29,14 +41,12 @@ public class Sprite {
 		x += dx;
 		y += dy;
 		
-		/*
 		if(x < 1){
 			x = 1;
 		}
 		if(y < 1){
 			y = 1;
 		}
-		*/
 	}
 
 	public boolean isVisible() {
@@ -64,40 +74,43 @@ public class Sprite {
 	}
 	
 	public void keyPressed(KeyEvent e){
-		int key = e.getKeyCode();
-		
-		if(key == KeyEvent.VK_LEFT){
-			x = -1;
-		}
-		if(key == KeyEvent.VK_RIGHT){
-			x = 1;
-		}
-		if(key == KeyEvent.VK_UP){
-			y = -1;
-		}
-		if(key == KeyEvent.VK_DOWN){
-			y = 1;
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_LEFT:
+				dx = -1;
+			break;
+
+			case KeyEvent.VK_RIGHT:
+				dx = 1;
+			break;
+
+			case KeyEvent.VK_UP:
+				dy = -1;
+			break;
+
+			case KeyEvent.VK_DOWN:
+				dy = 1;
+			break;
 		}
 	}
 	
 	public void keyReleased(KeyEvent e){
-		int key = e.getKeyCode();
-		
-		if (key == KeyEvent.VK_LEFT) {
-            dx = 0;
-        }
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_LEFT:
+				dx = 0;
+            break;
 
-        if (key == KeyEvent.VK_RIGHT) {
-            dx = 0;
-        }
+			case KeyEvent.VK_RIGHT:
+				dx = 0;
+			break;
 
-        if (key == KeyEvent.VK_UP) {
-            dy = 0;
-        }
+			case KeyEvent.VK_UP:
+				dy = 0;
+            break;
 
-        if (key == KeyEvent.VK_DOWN) {
-            dy = 0;
-        }
+			case KeyEvent.VK_DOWN:
+				dy = 0;
+			break;
+		}
 	}
 	
 	
